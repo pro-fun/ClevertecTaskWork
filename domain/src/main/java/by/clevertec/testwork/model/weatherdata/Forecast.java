@@ -1,0 +1,23 @@
+
+package by.clevertec.testwork.model.weatherdata;
+
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class Forecast {
+
+    public String date;
+    public Integer dateTs;
+    public Integer week;
+    public String sunrise;
+    public String sunset;
+    public String riseBegin;
+    public String setEnd;
+    public Integer moonCode;
+    public String moonText;
+    public Parts parts;
+    public Biomet biomet;
+
+}

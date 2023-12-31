@@ -1,0 +1,28 @@
+coordinate:
+  longitude: 30.9754
+  latitude: 52.4345
+yandex:
+  url: https://api.weather.yandex.ru/v2/forecast
+  apiKey: 780ab95d-489c-4862-b062-a3bb5fa5e4bc
+  limit: 5
+  hours: false
+  lang: ru_RU
+  extra: false
+
+spring:
+  data:
+    mongodb:
+      user:
+      password:
+      uri: mongodb://localhost:27017/?authSource=db
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health'
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+

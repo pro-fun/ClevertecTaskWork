@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  mongodb_container:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME:
+      MONGO_INITDB_ROOT_PASSWORD:
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  scheduler:
+    image: weather-service:latest
+    ports:
+      - 8080:8080
+    environment:
+      - YANDEX_LIMIT=5
+      - YANDEX_APIKEY=780ab95d-489c-4862-b062-a3bb5fa5e4bc
+      - YANDEX_HOURS=false
+      - YANDEX_LANG=ru_RU
+      - YANDEX_EXTRA=false
+      - SPRING_DATASOURCE_URL=mongodb://localhost:27017/?authSource=db
+      - SPRING_DATASOURCE_USERNAME=
+      - SPRING_DATASOURCE_PASSWORD=
+  api-weather:
+    image: api-service:latest
+    ports:
+      - 8081:8081
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+volumes:
+  mongodb_data_container:
